@@ -176,4 +176,27 @@ class ColorVertivalStackBarView(ctx : Context) : View(ctx) {
             curr.startUpdating(cb)
         }
     }
+
+    data class Renderer(var view : ColorVertivalStackBarView) {
+
+        private val animator : Animator = Animator(view)
+        private val vsb : VerticalStackBars = VerticalStackBars(0)
+        private val paint : Paint = Paint(Paint.ANTI_ALIAS_FLAG)
+
+        fun render(canvas : Canvas) {
+            canvas.drawColor(backColor)
+            vsb.draw(canvas, paint)
+            animator.animate {
+                vsb.update {
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            vsb.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
