@@ -13,7 +13,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.RectF
 
-val colors : Array<String> = arrayOf("", "", "", "", "")
+val colors : Array<String> = arrayOf("#673AB7", "#4CAF50", "#2196F3", "#3F51B5", "#00BCD4")
 val scGap : Float = 0.02f
 val wFactor : Float = 3f
 val delay : Long = 20
@@ -23,7 +23,7 @@ val hFactor : Float = 2f
 
 fun Int.inverse() : Float = 1f / this
 fun Float.maxScale(i : Int, n : Int) : Float = Math.max(0f, this - i * n.inverse())
-fun Float.divideScale(i : Int, n : Int) : Float = Math.sin(this * Math.PI).toFloat()
+fun Float.divideScale(i : Int, n : Int) : Float = Math.min(n.inverse(), maxScale(i, n)) * n
 fun Float.sinify() : Float = Math.sin(this * Math.PI).toFloat()
 
 fun Canvas.drawVerticalStackBar(i : Int, w : Float, h : Float, scale : Float, paint : Paint) {
@@ -45,7 +45,7 @@ fun Canvas.drawVSBNode(i : Int, scale : Float, paint : Paint) {
     paint.color = Color.parseColor(colors[i])
     save()
     for (j in 0..(bars - 1)) {
-        drawVerticalStackBar(i, w, h, scale, paint)
+        drawVerticalStackBar(j, w, h, scale, paint)
     }
     restore()
 }
