@@ -199,4 +199,13 @@ class ColorVertivalStackBarView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    companion object {
+
+        fun create(activity : Activity) : ColorVertivalStackBarView {
+            val view : ColorVertivalStackBarView = ColorVertivalStackBarView(activity)
+            activity.setContentView(view)
+            return view
+        }
+    }
 }
